@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in PRINTING-TO-CONSOLE problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Jaclyn Setina.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -53,17 +53,23 @@ def run_test_shape():
     print('Test 3 of shape: r=2')
     shape(2)
 
+def one_row(num_plusses, num_spaces):
+    starting_num = num_plusses
+    num_dashes = num_spaces
+
+
 
 def shape(r):
     """
     Prints a shape with r rows that looks like this example where r=7:
-    +++++++!7654321
-     ++++++!654321-
-      +++++!54321--
-       ++++!4321---
-        +++!321----
-         ++!21-----
-          +!1------
+                        Num +    Spaces    ! Point     Dashes
+    +++++++!7654321       7         0         1          0
+     ++++++!654321-       6         1         1          1
+      +++++!54321--       5         2         1          2
+       ++++!4321---       4         3         1          3
+        +++!321----       3         4         1          4
+         ++!21-----       2         5         1          5
+          +!1------       1         6         1          6
 
     Another example, where r=4:
     ++++!4321
@@ -87,6 +93,15 @@ def shape(r):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:  15 minutes.
     # ------------------------------------------------------------------
+    for k in range(r):
+        for plus in range(r):
+            print('+', end='')
+        for _ in range(1):
+            print('!', end='')
+        for n in range(r, 0, -1):
+            print(n, end='')
+        print()
+
 
 
 # ----------------------------------------------------------------------
