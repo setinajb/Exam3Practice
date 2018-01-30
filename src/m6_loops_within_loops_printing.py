@@ -53,20 +53,15 @@ def run_test_shape():
     print('Test 3 of shape: r=2')
     shape(2)
 
-def one_row(num_plusses, num_spaces):
-    starting_num = num_plusses
-    num_dashes = num_spaces
-
-
 
 def shape(r):
     """
     Prints a shape with r rows that looks like this example where r=7:
-                        Num +    Spaces    ! Point     Dashes
-    +++++++!7654321       7         0         1          0
-     ++++++!654321-       6         1         1          1
-      +++++!54321--       5         2         1          2
-       ++++!4321---       4         3         1          3
+                        Num +    Spaces    ! Point     Dashes   r    k
+    +++++++!7654321       7         0         1          0      7    0
+     ++++++!654321-       6         1         1          1      7    1
+      +++++!54321--       5         2         1          2      7    2
+       ++++!4321---       4         3         1          3      7    3
         +++!321----       3         4         1          4
          ++!21-----       2         5         1          5
           +!1------       1         6         1          6
@@ -81,7 +76,7 @@ def shape(r):
     For purposes of "lining up", assume r is a single digit.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     ####################################################################
@@ -93,13 +88,39 @@ def shape(r):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:  15 minutes.
     # ------------------------------------------------------------------
+    # for k in range(r):
+    #     for space in range(k):
+    #         print(' ', end='')
+    #     for plus in range(r, 0, -1):
+    #         print('+', end='')
+    #     for exc in range(1):
+    #         print('!', end='')
+    #     for n in range(r, 0, -1):
+    #         print(n, end='')
+    #     for dash in range(k):
+    #         print('-', end='')
+    #     print()
+
     for k in range(r):
-        for plus in range(r):
+        num_plusses = r - k
+        num_spaces = k
+        starting_num = num_plusses
+        num_dashes = num_spaces
+
+        for j in range(num_spaces):
+            print(' ', end='')
+
+        for j in range(num_plusses):
             print('+', end='')
-        for _ in range(1):
-            print('!', end='')
-        for n in range(r, 0, -1):
-            print(n, end='')
+
+        print('!', end='')
+
+        for j in range(starting_num, 0, -1):
+            print(j, end='')
+
+        for j in range(num_dashes):
+            print('-', end='')
+
         print()
 
 
