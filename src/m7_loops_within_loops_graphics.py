@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Jaclyn Setina.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -29,11 +29,12 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 ########################################################################
 
 import rosegraphics as rg
-
+import math
+import time
 
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_hourglass()
+    # run_test_hourglass()
     run_test_many_hourglasses()
 
 
@@ -89,7 +90,7 @@ def hourglass(window, n, point, radius, color):
     a color that rosegraphics understands.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # ------------------------------------------------------------------
     ####################################################################
@@ -101,6 +102,32 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+    hourglass_helper(window, n, point, radius, color, 1)
+    hourglass_helper(window, n, point, radius, color, -1)
+
+
+def hourglass_helper(window, n, point, radius, color, direction):
+    for k in range(n):
+        num_circles = k + 1
+        starting_x = point.x
+        for j in range(num_circles):
+            circle = rg.Circle(point, radius)
+            circle.fill_color = color
+            circle.attach_to(window)
+            line_p1 = circle.center.x - circle.radius
+            p1 = rg.Point(line_p1, circle.center.y)
+            line_p2 = circle.center.x + circle.radius
+            p2 = rg.Point(line_p2, circle.center.y)
+            line = rg.Line(p1, p2)
+            line.attach_to(window)
+            window.render(0.01)
+            new_x = circle.center.x + 2*circle.radius
+            point = rg.Point(new_x, circle.center.y)
+
+        new_x = starting_x - radius
+        y_move = math.sqrt((2 * radius) ** 2 - radius ** 2)
+        new_y = circle.center.y - direction*y_move
+        point = rg.Point(new_x, new_y)
 
 
 def run_test_many_hourglasses():
@@ -179,6 +206,47 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+    direction = 1
+    color = 0
+    radius = square.length_of_each_side/2
+    diameter = 2*radius
+    sq_cent_x = square.center.x
+    sq_cent_y = square.center.y
+    """
+    k    d
+    0:   0
+    1*2+1: 3 
+    2+3: 5
+    3+4: 7
+    4: 9
+    """
+    square.attach_to(window)
+    center_x = sq_cent_x
+    upper_left = square.get_bounding_box().get_upper_left_corner()
+    rect_x = upper_left.x
+    rect_y = upper_left.y
+    y_move = math.sqrt((2 * radius) ** 2 - radius ** 2)
+
+    for k in range(m):
+        point = rg.Point(center_x, sq_cent_y)
+        hourglass_helper(window, k+1, point, radius, colors[color], direction)
+        hourglass_helper(window, k+1, point, radius, colors[color], -1*direction)
+        point1 = rg.Point(rect_x, rect_y)
+        rect_width = diameter*(k+1)
+        rect_height = (k*y_move + radius)*2
+        point2 = rg.Point(point1.x + rect_width, point1.y+rect_height)
+        rect = rg.Rectangle(point1, point2)
+        rect.attach_to(window)
+        color = color + 1
+        if color > len(colors)-1:
+            color = 0
+        window.render(1)
+        x_change = radius*((k+1)*2 + 1)
+        center_x = center_x + x_change
+        rect_x = rect_x + diameter*(k+1)
+        rect_y = rect_y - y_move
+
+
 
 
 # ----------------------------------------------------------------------
