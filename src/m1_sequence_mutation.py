@@ -88,10 +88,15 @@ def zero_changer(tuple_of_lists):
     counter = 0
     for k in range(len(tuple_of_lists)):
         list1 = tuple_of_lists[k]
-        for j in range(len(list1)):
-            if list1[j] == 0:
+        for m in range(len(list1)):
+            if list1[m] == 0:
                 counter = counter + 1
-                list1[j] = counter
+                list1[m] = counter
+
+
+
+
+
 
 
 # ----------------------------------------------------------------------
