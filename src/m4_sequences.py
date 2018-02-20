@@ -142,10 +142,18 @@ def practice_problem4a(sequence):
     #    TIME ESTIMATE:   15 minutes.
     ####################################################################
     new_list = []
-    for k in range(0, len(sequence)-1):
+    for k in range(len(sequence)-1):
         if sequence[k] == sequence[k+1]:
             new_list = new_list + [k]
     return new_list
+
+
+
+    # new_list = []
+    # for k in range(0, len(sequence)-1):
+    #     if sequence[k] == sequence[k+1]:
+    #         new_list = new_list + [k]
+    # return new_list
 
 def run_test_practice_problem4b():
     """ Tests the    practice_problem4b    function. """
